@@ -1,26 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ContactManager.Models; 
+using ContactManager.Models;
+using ContactManager.Services;
 
 [Route("api/[controller]")]
 [ApiController]
 public class ContactController : ControllerBase
 {
+    
+    private ContactRepository contactRepository;
+
+    public ContactController()
+    {
+        this.contactRepository = new ContactRepository();
+    }
     [HttpGet]
     public Contact[] Get()
     {
-        return new Contact[]
-        {
-        new Contact
-        {
-            Id = 1,
-            Name = "Glenn Block"
-        },
-        new Contact
-        {
-            Id = 2,
-            Name = "Dan Roth"
-        }
-        };
+        return contactRepository.GetAllContacts();
     }
 }
 
